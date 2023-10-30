@@ -239,12 +239,12 @@ def homepage():
          col1, col2 = st.columns(2)
          
          col1.write(""" \n\nDit dashboard geeft inzicht over het gebruik van elektriciteit op het bedrijventerrein Schiphol Trade Park. 
-         Met de transitie naar elektrische voertuigen zal er meer gevraagd worden van het netwerk. 
-         Door de ontwikkeling van de bedrijven en hun wagenpark in kaart te brengen kan er voorspeld worden hoe de stroomvraag zich ontwikkeld.
+         Met de transitie naar elektrische voertuigen zal er meer gevraagd worden van het elektriciteitsnetwerk. 
+         Door de ontwikkeling van de bedrijven en hun wagenpark in kaart te brengen kan er voorspeld worden hoe de stroomvraag zich ontwikkelt.
          
          \n\n Terwijl de wereld zich richt op duurzame energie, wordt de overstap naar elektrische voertuigen op bedrijventerreinen een groot en complex vraagstuk. 
-         Het is algemeen bekend dat de elektriciteitsinfrastructuur in Nederland op sommige locaties al tegen zijn uiterste loopt.
-         De transitie naar eleketrisch transport zal nog meer druk zetten op onze infrastructuur, zo ook op het bedrijventerrein Schiphol Trade Park.
+         Het is algemeen bekend dat de elektriciteitsinfrastructuur in Nederland op sommige locaties al tegen zijn grenzen loopt.
+         De transitie naar elektrisch transport zal nog meer druk zetten op onze infrastructuur, zo ook op het bedrijventerrein Schiphol Trade Park.
          Dit betekent dat we geconfronteerd worden met een complexe puzzel die op de juiste manier moet worden aangepakt. 
          Dit dashboard biedt inzichten in de huidige situatie, uitdagingen en kansen binnen op het Schiphol Trade Park.\n\n""")
          
@@ -408,7 +408,7 @@ def bsg_page():
              </table>
              """
 
-         text3.write("Dit tabel geeft aan welke databronnen zijn geraadpleegd voor de verschillende type")
+         text3.write("Deze tabel geeft aan welke databronnen zijn geraadpleegd voor ieder detailniveau")
          text3.markdown(table_html, unsafe_allow_html=True)
 
          
@@ -570,7 +570,7 @@ def bsg_page():
          kilometers kan vervolgens worden omgerekend naar een hoeveelheid kWh wat geladen moet worden. De bedrijven die de enquete hebben ingevuld hebben 
          aangegeven hoeveel kilometer zij gemiddeld en maximaal op een dag rijden, i.c.m. het aantal voertuigen kan er een beeld geschetst worden van de 
          toekomstige laadvraag. We beschikken niet over het aantal gereden kilometers van de "bronze" bedrijven. Om dit te bepalen is er gekeken naar de 
-         hoeveelheid gereden kilometers van de zilvere en gouden bedrijven. Hiervan is een gemiddelde genomen per voertuig, deze is vervolgens toegewezen 
+         hoeveelheid gereden kilometers van de zilveren en gouden bedrijven. Hiervan is een gemiddelde genomen per voertuig, deze is vervolgens toegewezen 
          aan de bronze voertuigen""")
          df_anv_afstand = df[["bedrijf", "kwaliteit data", 'truck gem afstand in km', 'bakwagen gem afstand in km',
                                                  'bestelwagen gem afstand in km', 'truck max afstand in km', 'bakwagen max afstand in km', 
@@ -683,8 +683,7 @@ def vehicle_page():
          # The user can select between maximum and average
          #value_type = col1.radio('Kies voor een gemiddeld of maximaal aantal kilometers', options=['max', 'gem'], captions = ["Maximaal", "Gemiddeld"])
          #
-         patroon_type = col1.radio('Kies een laadscenario', options=['Probability Uur Smart0', 'Probability Uur Smart1'], 
-                                   captions = ["Normaal laden", "Smart Laden"])
+         patroon_type = col1.radio('Kies een laadscenario', options=['Normaal laden', 'Smart charging'])
 
          adjustment_value = col1.number_input('Kies of en hoeveel je het netwerk wil versterken', value=0.0)
 
@@ -815,7 +814,7 @@ def vehicle_page():
          
 
          # User selects the type
-         selected_type = col2.radio('Kies voor een gemiddeld of maximaal aantal kilometers', ['gem', 'max'], captions = ["Gemiddeld", "Maximaal"])
+         selected_type = 'gem'#col2.radio('Kies voor een gemiddeld of maximaal aantal kilometers', ['gem', 'max'])#, captions = ["Gemiddeld", "Maximaal"])
        
          # Filter the DataFrame based on the selected type
          filtered_toename = toename[toename['type'] == selected_type]
@@ -824,7 +823,7 @@ def vehicle_page():
          fig7, ax7 = plt.subplots()
          ax7.plot(filtered_toename['jaar'], filtered_toename['gem'])
          ax7.fill_between(filtered_toename['jaar'], filtered_toename['min'], filtered_toename['max'], color = "skyblue", alpha = 0.4)
-         ax7.axhline(y=6000 + adjustment_value, color='black', linestyle='--')
+         ax7.axhline(y=2890 + adjustment_value, color='black', linestyle='--')
          ax7.set_ylim([0,8000])
          ax7.set_title(f'Toename piek stroomnet')
          plt.xlabel('Jaar')
@@ -865,7 +864,7 @@ def vehicle_page():
          # Plotting
          fig5, ax5 = plt.subplots(figsize=(6,3))
          toename_df[columns_to_display].plot(kind='area', stacked=True, title=f'Toename piek stroomnet', ax=ax5)
-         ax5.axhline(y=6000 + adjustment_value, color='black', linestyle='--')
+         ax5.axhline(y=2890 + adjustment_value, color='black', linestyle='--')
          # Adjusting title font size
          ax5.set_title(f'Toename piek stroomnet')
          
@@ -885,9 +884,9 @@ def vehicle_page():
          
          
          # Based on the user's selections, choose the appropriate columns
-         truck_usage_column = f'truck {value_type} verbruik {year} in kWh'
-         bakwagen_usage_column = f'bakwagen {value_type} verbruik {year} in kWh'
-         bestelwagen_usage_column = f'bestelwagen {value_type} verbruik {year} in kWh'
+         truck_usage_column = f'truck {selected_type} verbruik {year} in kWh'
+         bakwagen_usage_column = f'bakwagen {selected_type} verbruik {year} in kWh'
+         bestelwagen_usage_column = f'bestelwagen {selected_type} verbruik {year} in kWh'
          pand_usage_column = 'Verbruik pand in kWh'
          
          #### Year
@@ -1026,9 +1025,9 @@ def company_page():
          year = col1.selectbox('Select a year', options=[2025, 2030, 2035, 2040])
          
          # The user can select between maximum and average
-         value_type = col1.radio('Choose a value type', options=['max', 'gem'])
+         value_type = 'gem'#col1.radio('Choose a value type', options=['max', 'gem'])
 
-         patroon_type = col1.radio('Kies een laadscenario', options=['Probability Uur Smart0', 'Probability Uur Smart1'])
+         patroon_type = col1.radio('Kies een laadscenario', options=['Normaal laden', 'Smart charging'])
 
          adjustment_value = col1.number_input('upgrade netwerk', value=0.0)
          

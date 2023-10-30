@@ -1,4 +1,4 @@
-,Bedrijf,Maand nummer,Probability Maand,Dag nummer,Probability Dag,Uur nummer,Probability Uur,Probability Uur Smart0,Probability Uur Smart1
+,Bedrijf,Maand nummer,Probability Maand,Dag nummer,Probability Dag,Uur nummer,Probability Uur,Normaal laden,Smart charging
 0,PVH Tommy Hilfiger,1,0.0833,1,0.2,0,0.0,0.0223966530687821,0.0611542639966294
 1,PVH Tommy Hilfiger,1,0.0833,1,0.2,1,0.0,0.0107871822875869,0.0611021969756856
 2,PVH Tommy Hilfiger,1,0.0833,1,0.2,2,0.0180718626981917,0.0060539045546062,0.0606633968666052
