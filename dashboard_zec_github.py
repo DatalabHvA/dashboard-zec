@@ -88,10 +88,20 @@ anvu_grp = anvu_grp.rename(columns = {"oppervlakte":"pc4 Oppervlakte"})
 
 stp_vrtg = anvu_vrtg[anvu_vrtg["Bedrijventerrein"] == "STP"]
 
+df_cbs_values = pd.DataFrame({'type' : ['Aantal truck','Aantal bakwagens','Aantal bestelwagens'],'Aantal':[13,7,170]})
+
+st.sidebar.write('Totale aantallen voertuigen')
+df_cbs_values = st.sidebar.data_editor(df_cbs_values)
+
 stp_verd = vrtg_verdeling[vrtg_verdeling["pc4"] == "2133"]
-stp_verd['pc4 Bestelwagen'] = stp_verd['pc4 Bestelwagen'] - stp_vrtg["Aantal bestelwagen"].sum()
-stp_verd['pc4 Truck'] = stp_verd['pc4 Truck'] - stp_vrtg["Aantal truck"].sum()
-stp_verd['pc4 Bakwagen'] = stp_verd['pc4 Bakwagen'] - stp_vrtg["Aantal bakwagen"].sum()
+#stp_verd['pc4 Bestelwagen'] = stp_verd['pc4 Bestelwagen'] - stp_vrtg["Aantal bestelwagen"].sum()
+#stp_verd['pc4 Truck'] = stp_verd['pc4 Truck'] - stp_vrtg["Aantal truck"].sum()
+#stp_verd['pc4 Bakwagen'] = stp_verd['pc4 Bakwagen'] - stp_vrtg["Aantal bakwagen"].sum()
+stp_verd['pc4 Bestelwagen'] = df_cbs_values.iloc[2]['Aantal'] - stp_vrtg["Aantal bestelwagen"].sum()
+stp_verd['pc4 Truck'] = df_cbs_values.iloc[0]['Aantal'] - stp_vrtg["Aantal truck"].sum()
+stp_verd['pc4 Bakwagen'] = df_cbs_values.iloc[1]['Aantal'] - stp_vrtg["Aantal bakwagen"].sum()
+
+
 stp_verd = stp_verd.rename(columns = {"pc4 Bestelwagen":"Aantal bestelwagen", "pc4 Bakwagen":"Aantal bakwagen", 
                                      "pc4 Truck":"Aantal truck"})
 
@@ -103,10 +113,13 @@ stp_vrtg['Aantal bestelwagen'] = stp_vrtg['Aantal bestelwagen'].replace({np.nan:
 # Filter the DataFrame based on the "Kwaliteit data" column
 df_brons = stp_vrtg[stp_vrtg['Kwaliteit data'] == 'Brons']
 
+
 # Total number of vehicles to distribute
 total_truck = int(stp_verd.iloc[0,3])
 total_bakwagen = int(stp_verd.iloc[0,2])
 total_bestelwagen = int(stp_verd.iloc[0,1])
+
+
 
 # Distribute the vehicles randomly
 for _ in range(total_truck):
@@ -824,7 +837,7 @@ def vehicle_page():
          ax7.plot(filtered_toename['jaar'], filtered_toename['gem'])
          ax7.fill_between(filtered_toename['jaar'], filtered_toename['min'], filtered_toename['max'], color = "skyblue", alpha = 0.4)
          ax7.axhline(y=2890 + adjustment_value, color='black', linestyle='--')
-         ax7.set_ylim([0,8000])
+         #ax7.set_ylim([0,8000])
          ax7.set_title(f'Toename piek stroomnet')
          plt.xlabel('Jaar')
          plt.ylabel('Capaciteit in kW')
@@ -871,7 +884,7 @@ def vehicle_page():
          # Adjusting axis label font sizes
          plt.xlabel('Jaar')
          plt.ylabel('Capaciteit in kW')
-         ax5.set_ylim([0,8000])
+         #ax5.set_ylim([0,8000])
          
          # Adjusting tick font sizes
          ax5.tick_params(axis='both', which='major', labelsize=6)
@@ -1166,7 +1179,7 @@ def company_page():
          toename_df.plot(kind='area', stacked=True, title=f'Toename piek stroomnet', ax=ax5)
          #ax5.axhline(y=8000 + adjustment_value, color='black', linestyle='--')
          # Adjusting title font size
-         ax5.set_ylim([0,8000])
+         #ax5.set_ylim([0,8000])
          ax5.set_title(f'Toename piek stroomnet')
          plt.xlabel('Jaar')
          plt.ylabel('Capaciteit in kW')
