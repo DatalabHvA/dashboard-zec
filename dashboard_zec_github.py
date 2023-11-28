@@ -686,7 +686,7 @@ def vehicle_page():
          Dit dashboard biedt inzichten in de huidige situatie, uitdagingen en kansen binnen op het Schiphol Trade Park.""")  # Replace with your desired text
 
          # capacity line
-         show_line = col1.checkbox('Capaciteit netwerk')
+         # show_line = col1.checkbox('Capaciteit netwerk')
 
          
          
@@ -837,7 +837,7 @@ def vehicle_page():
          ax7.plot(filtered_toename['jaar'], filtered_toename['gem'])
          ax7.fill_between(filtered_toename['jaar'], filtered_toename['min'], filtered_toename['max'], color = "skyblue", alpha = 0.4)
          ax7.axhline(y=2890 + adjustment_value, color='black', linestyle='--')
-         #ax7.set_ylim([0,8000])
+         ax7.set_ylim(bottom=0)
          ax7.set_title(f'Toename piek stroomnet')
          plt.xlabel('Jaar')
          plt.ylabel('Capaciteit in kW')
@@ -984,11 +984,11 @@ def vehicle_page():
          
 
 
-         if show_line:
-                  ax1.axhline(y=1500000 + adjustment_value, color='black', linestyle='--')
-                  ax2.axhline(y=50000 + adjustment_value, color='black', linestyle='--')
-                  ax3.axhline(y=40000 + adjustment_value, color='black', linestyle='--')
-                  ax4.axhline(y=7500 + adjustment_value, color='black', linestyle='--')
+         #if show_line:
+         #         ax1.axhline(y=1500000 + adjustment_value, color='black', linestyle='--')
+         #         ax2.axhline(y=50000 + adjustment_value, color='black', linestyle='--')
+         #         ax3.axhline(y=40000 + adjustment_value, color='black', linestyle='--')
+         #         ax4.axhline(y=7500 + adjustment_value, color='black', linestyle='--')
 
          # Display the plots
          cols[0].pyplot(fig1)
@@ -1032,7 +1032,7 @@ def company_page():
          Dit betekent dat we geconfronteerd worden met een complexe puzzel die op de juiste manier moet worden aangepakt. 
          Dit dashboard biedt inzichten in de huidige situatie, uitdagingen en kansen binnen op het Schiphol Trade Park.""")
          # capacity line
-         show_line = col1.checkbox('Capaciteit netwerk')
+         # show_line = col1.checkbox('Capaciteit netwerk')
          
          # The user can select a year
          year = col1.selectbox('Select a year', options=[2025, 2030, 2035, 2040])
@@ -1279,11 +1279,11 @@ def company_page():
          ax4.legend().set_visible(False)
 
 
-         if show_line:
-                  ax1.axhline(y=1500000 + adjustment_value, color='black', linestyle='--')
-                  ax2.axhline(y=50000 + adjustment_value, color='black', linestyle='--')
-                  ax3.axhline(y=40000 + adjustment_value, color='black', linestyle='--')
-                  ax4.axhline(y=7500 + adjustment_value, color='black', linestyle='--')
+         #if show_line:
+         #         ax1.axhline(y=1500000 + adjustment_value, color='black', linestyle='--')
+         #         ax2.axhline(y=50000 + adjustment_value, color='black', linestyle='--')
+         #         ax3.axhline(y=40000 + adjustment_value, color='black', linestyle='--')
+         #         ax4.axhline(y=7500 + adjustment_value, color='black', linestyle='--')
 
          # Display the plots
          cols[0].pyplot(fig1)
