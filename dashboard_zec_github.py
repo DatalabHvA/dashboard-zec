@@ -953,7 +953,7 @@ def vehicle_page():
          
          # Create the first chart
          fig1, ax1 = plt.subplots()
-         df_yearly_vehicle.plot(kind='area', stacked=True, title='Yearly Electricity Usage', ax=ax1)
+         df_yearly_vehicle.reset_index().set_index('Month').drop(columns = 'Year').plot(kind='area', stacked=True, title='Yearly Electricity Usage', ax=ax1)
          ax1.set_ylim([0, df_final.groupby(['Year', 'Month'])["max verbruik in kWh 2040"].sum().max()])
          
          # cols[0].pyplot(fig1)
@@ -1248,7 +1248,7 @@ def company_page():
          
          # Create the first chart
          fig1, ax1 = plt.subplots()
-         df_yearly_company.plot(kind='area', stacked=True, title='Yearly Electricity Usage per Company', ax=ax1)
+         df_yearly_company.reset_index().set_index('Month').drop(columns = 'Year').plot(kind='area', stacked=True, title='Yearly Electricity Usage per Company', ax=ax1)
          ax1.set_ylim([0, df_final.groupby(['Year', 'Month'])["max verbruik in kWh 2040"].sum().max()])
          ax1.legend().set_visible(False)
          # cols[0].pyplot(fig1)
