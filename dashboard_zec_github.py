@@ -222,7 +222,7 @@ df.loc[mask, 'Voorspelling aantal elektrische bestelwagen 2040'] = df.loc[mask, 
 #######################################
 
 df.columns = df.columns.str.lower()
-df = df[["bedrijf", "kwaliteit data", "aantal truck", "aantal bakwagen", "aantal bestelwagen", 'truck gem afstand in km', 
+df = df[["bedrijf", "bedrijf2", "kwaliteit data", "aantal truck", "aantal bakwagen", "aantal bestelwagen", 'truck gem afstand in km', 
          'bakwagen gem afstand in km', 'bestelwagen gem afstand in km', 'truck max afstand in km', 'bakwagen max afstand in km', 'bestelwagen max afstand in km', "bezoekende truck per dag", 
          "bezoekende bakwagen per dag", "bezoekende bestelwagen per dag", "tijd bezoekend truck in minuten", "jaarverbruik", 
          "tijd bezoekend bakwagen in minuten", "tijd bezoekend bestelwagen in minuten", "vermogen aansluiting in watt (pand)",
@@ -564,7 +564,7 @@ def bsg_page():
          voertuigen zij hebben. Echter hebben niet alle bedrijven dat gedaan. Om een compleet beeld te geven van het wagenpark van het bedrijventerrein wordt er
          gekeken naar cbs data: https://opendata.cbs.nl/#/CBS/nl/dataset/37209hvv/table . \n\nDe voertuigen die in de enquetes naar boven kwamen worden van 
          de voertuigen van cbs afgetrokken. De resterende voertuigen worden vervolgens verdeeld over de "bronze" bedrijven. Deze verdeling is willekeurig.""")
-         df_anv_voertuigen = df[["bedrijf", "kwaliteit data", "aantal truck", "aantal bakwagen", "aantal bestelwagen"]]
+         df_anv_voertuigen = df[["bedrijf2", "kwaliteit data", "aantal truck", "aantal bakwagen", "aantal bestelwagen"]]
          
          st.markdown("""
          <style>
@@ -585,7 +585,7 @@ def bsg_page():
          toekomstige laadvraag. We beschikken niet over het aantal gereden kilometers van de "bronze" bedrijven. Om dit te bepalen is er gekeken naar de 
          hoeveelheid gereden kilometers van de zilveren en gouden bedrijven. Hiervan is een gemiddelde genomen per voertuig, deze is vervolgens toegewezen 
          aan de bronze voertuigen""")
-         df_anv_afstand = df[["bedrijf", "kwaliteit data", 'truck gem afstand in km', 'bakwagen gem afstand in km',
+         df_anv_afstand = df[["bedrijf2", "kwaliteit data", 'truck gem afstand in km', 'bakwagen gem afstand in km',
                                                  'bestelwagen gem afstand in km', 'truck max afstand in km', 'bakwagen max afstand in km', 
                                                  'bestelwagen max afstand in km']]
 
@@ -609,7 +609,7 @@ def bsg_page():
          Voor de bronzen bedrijven is er a.d.h.v. openbare en eigen data een schatting gemaakt. Er is gekeken naar het aantal m2 per pand van de bronzen bedrijven.
          Vervolgens is er a.d.h.v. de data van de zilveren en gouden bedrijven een gemiddelde bepaald per m2. Dit gemiddelde per m2 is vervolgens vermenigvuldigd 
          met het aantal m2 van het pand van de bedrijf.""")
-         df_anv_verbruik = df[["bedrijf", "kwaliteit data", "jaarverbruik"]]
+         df_anv_verbruik = df[["bedrijf2", "kwaliteit data", "jaarverbruik"]]
          
          st.markdown("""
          <style>
@@ -628,7 +628,7 @@ def bsg_page():
          Voor de bronzen bedrijven is er a.d.h.v. openbare en eigen data een schatting gemaakt. Er is gekeken naar het aantal m2 per pand van de bronzen bedrijven.
          Vervolgens is er a.d.h.v. de data van de zilveren en gouden bedrijven een gemiddelde bepaald per m2. Dit gemiddelde per m2 is vervolgens vermenigvuldigd 
          met het aantal m2 van het pand van de bedrijf.""")
-         df_anv_aansluiting = df[["bedrijf", "kwaliteit data", "vermogen aansluiting in watt (pand)"]]
+         df_anv_aansluiting = df[["bedrijf2", "kwaliteit data", "vermogen aansluiting in watt (pand)"]]
          
          st.markdown("""
          <style>
@@ -648,7 +648,7 @@ def bsg_page():
          is er gebruik gemaakt van het ZET-kompas. Doormiddel van deze tool is het moment van overstap bepaald voor elk voertuig. De tool maakt
          gebruik van verschillende parameters om te bepalen wanneer de overstap plaatsvind.""")
          
-         df_anv_voorspelling = df[["bedrijf", "kwaliteit data", "bestelwagen 2025", "truck 2025", "bakwagen 2025", 
+         df_anv_voorspelling = df[["bedrijf2", "kwaliteit data", "bestelwagen 2025", "truck 2025", "bakwagen 2025", 
                                    "bestelwagen 2030", "truck 2030", "bakwagen 2030", "bestelwagen 2035", "truck 2035", "bakwagen 2035",
                                    "bestelwagen 2040", "truck 2040", "bakwagen 2040"]]
          uitleg0.write(df_anv_voorspelling)
