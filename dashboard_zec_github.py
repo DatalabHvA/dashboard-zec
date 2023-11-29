@@ -312,12 +312,12 @@ def homepage():
          #afbeeldingen en getallen voertuigen toevegen
          icon_bakwagen = "https://raw.githubusercontent.com/isamuu/dashboard/main/Icons%20dashboard/db%20bakwagen.jpg"
          aantal_bakwagen = int(df["aantal bakwagen"].sum())
-         icon_bakwagen_html = f'''<img src="{icon_bakwagen}" width="150" style="display: block; margin: auto;">'
+         icon_bakwagen_html = f'''<img src="{icon_bakwagen}" width="150" style="display: block; margin: auto;">
          <p style="text-align: center; font-size: 24px;">{aantal_bakwagen} Bakwagens</p>'''
          
          icon_bestelwagen = "https://raw.githubusercontent.com/isamuu/dashboard/main/Icons%20dashboard/db%20bestelwagen.jpg"
          aantal_bestelwagen = int(df["aantal bestelwagen"].sum())
-         icon_bestelwagen_html = f'''<img src="{icon_bestelwagen}" width="150" style="display: block; margin: auto;">'
+         icon_bestelwagen_html = f'''<img src="{icon_bestelwagen}" width="150" style="display: block; margin: auto;">
          <p style="text-align: center; font-size: 24px;">{aantal_bestelwagen} Bestelwagens</p>'''
          
          icon_truck = "https://raw.githubusercontent.com/isamuu/dashboard/main/Icons%20dashboard/db%20truck.jpg"
